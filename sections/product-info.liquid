@@ -1,0 +1,67 @@
+{% liquid
+  assign product_kind = 'morita'
+  if product.handle contains 'bundle'
+    assign product_kind = 'bundle'
+  elsif product.handle contains 'subscription' or product.handle contains 'never-run'
+    assign product_kind = 'subscription'
+  elsif product.handle contains 'seasoning'
+    assign product_kind = 'seasoning'
+  endif
+
+  case product_kind
+    when 'bundle'
+      assign detail_heading = 'Chile oil and seasoning, together.'
+      assign detail_body = 'Use the Morita Sauce when food needs smoky oil-based depth, and the Signature Seasoning when you want dry seasoning for grilling, finishing, and everyday cooking.'
+      assign spec_heading = 'What is included'
+      assign spec_body = 'One 4 oz jar of Vaquero Chile Morita and one 4 oz jar of Vaquero Signature Seasoning.'
+    when 'seasoning'
+      assign detail_heading = 'Smoky, savory, and built for every bite.'
+      assign detail_body = 'Use it as a rub, finishing spice, or everyday seasoning when food needs savory depth without extra prep.'
+      assign spec_heading = 'Clean dry seasoning'
+      assign spec_body = 'Chile morita, umami salt, garlic, black pepper.'
+    when 'subscription'
+      assign detail_heading = 'Set it, restock automatically.'
+      assign detail_body = 'Pick your level. We ship automatically every 60 days so you never run out of Vaquero.'
+      assign spec_heading = 'Subscription details'
+      assign spec_body = 'Shipping is included on all subscriptions. Cancel anytime, no hassle.'
+    else
+      assign detail_heading = 'Small-batch, bold flavor. Big impact.'
+      assign detail_body = 'Smoked chile morita brings deep chipotle heat, roasted garlic adds warmth, and avocado oil carries the flavor without weighing food down. Use it when dinner needs smoke, savor, and backbone.'
+      assign spec_heading = 'Premium ingredients. No shortcuts.'
+      assign spec_body = 'Avocado oil, chile morita, garlic, umami salt, black pepper.'
+  endcase
+%}
+
+<section class="product-info-grid" aria-label="Product details">
+  <article>
+    <p class="eyebrow">Flavor</p>
+    <h2>{{ product.metafields.custom.detail_heading | default: detail_heading }}</h2>
+    <p>{{ product.metafields.custom.detail_body | default: detail_body }}</p>
+  </article>
+  <article>
+    <p class="eyebrow">Ingredients</p>
+    <h2>{{ product.metafields.custom.spec_heading | default: spec_heading }}</h2>
+    <p>{{ product.metafields.custom.spec_body | default: spec_body }}</p>
+    <dl class="spec-list">
+      <div>
+        <dt>Heat</dt>
+        <dd>{{ product.metafields.custom.heat | default: 'Medium' }}</dd>
+      </div>
+      <div>
+        <dt>Texture</dt>
+        <dd>{{ product.metafields.custom.texture | default: 'Spoonable chile crisp oil' }}</dd>
+      </div>
+      <div>
+        <dt>Made in</dt>
+        <dd>{{ product.metafields.custom.made_in | default: 'Pioneertown, CA' }}</dd>
+      </div>
+    </dl>
+  </article>
+</section>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": []
+}
+{% endschema %}

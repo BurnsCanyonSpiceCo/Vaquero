@@ -1,0 +1,120 @@
+<section class="hero">
+  <div class="hero__content">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ section.settings.heading }}</h1>
+    <p>{{ section.settings.body }}</p>
+    <div class="hero__actions" aria-label="Primary shopping actions">
+      <a class="button button--primary" href="{{ section.settings.primary_link }}">{{ section.settings.primary_label }}</a>
+      <a class="button button--secondary" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a>
+    </div>
+    <dl class="proof-points" aria-label="Store highlights">
+      <div>
+        <dt>{{ section.settings.proof_1_value }}</dt>
+        <dd>{{ section.settings.proof_1_label }}</dd>
+      </div>
+      <div>
+        <dt>{{ section.settings.proof_2_value }}</dt>
+        <dd>{{ section.settings.proof_2_label }}</dd>
+      </div>
+      <div>
+        <dt>{{ section.settings.proof_3_value }}</dt>
+        <dd>{{ section.settings.proof_3_label }}</dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="hero__media" aria-label="Vaquero product photography">
+    <img src="{{ 'bundle-stack.png' | asset_url }}" width="392" height="505" alt="Vaquero chile morita and signature seasoning jars stacked together">
+    <div class="floating-card">
+      <strong>Best seller</strong>
+      <span>Chile Morita Sauce</span>
+      <b>from $7.50</b>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Small-batch chile oil and seasoning"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Bold flavor for food that needs backbone."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Vaquero brings smoky morita chile, roasted garlic, umami salt, and clean heat to eggs, tacos, grilled meat, vegetables, and everything that tastes almost finished."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary label",
+      "default": "Shop Vaquero"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary link",
+      "default": "#shop"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary label",
+      "default": "View best seller"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary link",
+      "default": "/products/vaquero-chile-morita-sauce"
+    },
+    {
+      "type": "text",
+      "id": "proof_1_value",
+      "label": "Proof 1 value",
+      "default": "5.0"
+    },
+    {
+      "type": "text",
+      "id": "proof_1_label",
+      "label": "Proof 1 label",
+      "default": "average rating"
+    },
+    {
+      "type": "text",
+      "id": "proof_2_value",
+      "label": "Proof 2 value",
+      "default": "60+"
+    },
+    {
+      "type": "text",
+      "id": "proof_2_label",
+      "label": "Proof 2 label",
+      "default": "orders ship free"
+    },
+    {
+      "type": "text",
+      "id": "proof_3_value",
+      "label": "Proof 3 value",
+      "default": "0"
+    },
+    {
+      "type": "text",
+      "id": "proof_3_label",
+      "label": "Proof 3 label",
+      "default": "artificial additives"
+    }
+  ]
+}
+{% endschema %}

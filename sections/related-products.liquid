@@ -1,0 +1,86 @@
+<section class="shop-section related-products" aria-labelledby="related-title">
+  <div class="section-heading">
+    <p class="eyebrow">Complete the lineup</p>
+    <h2 id="related-title">Pairs well with Vaquero.</h2>
+  </div>
+  <div class="product-grid product-grid--related">
+    {% for block in section.blocks %}
+      {% assign related_product = block.settings.product %}
+      {% if related_product != blank %}
+        <article class="product-card" {{ block.shopify_attributes }}>
+          <a class="product-card__image" href="{{ related_product.url }}" aria-label="View {{ related_product.title }}">
+            {% if block.settings.image_asset == 'seasoning' %}
+              <img src="{{ 'seasoning-white-jar.png' | asset_url }}" width="386" height="386" alt="White label jar of Vaquero Signature Seasoning">
+            {% else %}
+              <img src="{{ 'bundle-duo.png' | asset_url }}" width="900" height="900" alt="Vaquero Bundle with one black label Chile Morita jar and one white label Signature Seasoning jar">
+            {% endif %}
+            {% if block.settings.badge != blank %}
+              <span class="badge badge--green">{{ block.settings.badge }}</span>
+            {% endif %}
+          </a>
+          <div class="product-card__body">
+            <div class="rating" aria-label="Rated 5 out of 5 stars">
+              <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <a href="#reviews">{{ block.settings.rating_text }}</a>
+            </div>
+            <h3><a href="{{ related_product.url }}">{{ related_product.title }}</a></h3>
+            <p>{{ block.settings.description }}</p>
+            <div class="product-card__footer">
+              <span class="price">{% if related_product.price_varies %}from {% endif %}{{ related_product.price_min | money }}</span>
+              {% form 'product', related_product, class: 'quick-add-form', data-add-to-cart-form: '' %}
+                <input type="hidden" name="id" value="{{ related_product.selected_or_first_available_variant.id }}">
+                <button class="button button--compact quick-add" type="submit">Add</button>
+              {% endform %}
+            </div>
+          </div>
+        </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Related products",
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "select",
+          "id": "image_asset",
+          "label": "Image",
+          "default": "bundle",
+          "options": [
+            { "value": "bundle", "label": "Bundle duo" },
+            { "value": "seasoning", "label": "Seasoning jar" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge"
+        },
+        {
+          "type": "text",
+          "id": "rating_text",
+          "label": "Rating text",
+          "default": "Customer favorite"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "One 4 oz Chile Morita and one 4 oz Signature Seasoning."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

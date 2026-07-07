@@ -1,0 +1,155 @@
+{% liquid
+  assign product_kind = 'morita'
+  if product.handle contains 'bundle'
+    assign product_kind = 'bundle'
+  elsif product.handle contains 'subscription' or product.handle contains 'never-run'
+    assign product_kind = 'subscription'
+  elsif product.handle contains 'seasoning'
+    assign product_kind = 'seasoning'
+  endif
+
+  case product_kind
+    when 'bundle'
+      assign eyebrow = 'Bundle and save'
+      assign reviews = 'Customer favorite'
+      assign fallback_description = 'Spice bundle. Bundle up your Vaquero and save money while enjoying great flavor. This special offer includes one 4 oz jar of Vaquero Chile Morita and one 4 oz jar of Vaquero Signature Seasoning, carefully crafted to enhance your dishes.'
+      assign image_1 = 'bundle-duo.png'
+      assign image_1_alt = 'Vaquero Bundle with one black label Chile Morita jar and one white label Signature Seasoning jar'
+      assign image_2 = 'morita-black-jar.png'
+      assign image_2_alt = 'Black label Vaquero Chile Morita jar'
+      assign image_3 = 'seasoning-white-jar.png'
+      assign image_3_alt = 'White label Vaquero Signature Seasoning jar'
+      assign bullet_1 = 'One 4 oz Vaquero Chile Morita jar'
+      assign bullet_2 = 'One 4 oz Vaquero Signature Seasoning jar'
+      assign bullet_3 = 'Save money while getting the full everyday flavor lineup'
+    when 'seasoning'
+      assign eyebrow = 'Clean seasoning'
+      assign reviews = '3 product reviews'
+      assign fallback_description = 'Upgrade your spice rack with Vaquero Signature Seasoning, a perfectly balanced blend of chile morita, umami salt, garlic, and black pepper. Designed for daily cooking, this versatile blend adds bold, savory depth to everything from breakfast to barbecue.'
+      assign image_1 = 'seasoning-white-jar.png'
+      assign image_1_alt = 'White label jar of Vaquero Signature Seasoning'
+      assign image_2 = 'seasoning-open.png'
+      assign image_2_alt = 'Open jar of Vaquero Signature Seasoning'
+      assign image_3 = 'seasoning-spice-pour.png'
+      assign image_3_alt = 'Vaquero Signature Seasoning spilling from a jar'
+      assign bullet_1 = 'Smoky, savory, and versatile for breakfast, lunch, and dinner'
+      assign bullet_2 = 'Clean ingredients with no artificial additives'
+      assign bullet_3 = 'Handcrafted in small batches for maximum taste'
+    when 'subscription'
+      assign eyebrow = 'Auto ship'
+      assign reviews = '1 product review'
+      assign fallback_description = 'Never run out. Never pay shipping. Choose your quantity and we handle the rest, delivered every 60 days. Cancel anytime, no questions asked.'
+      assign image_1 = 'subscription-card.png'
+      assign image_1_alt = 'Multiple Vaquero jars on a brown background'
+      assign image_2 = 'subscription-jars-pattern.png'
+      assign image_2_alt = 'Pattern of Vaquero jars for subscription'
+      assign image_3 = 'morita-spoon.png'
+      assign image_3_alt = 'Chile Morita sauce on a wooden spoon'
+      assign bullet_1 = 'Starter: one 4 oz Morita for $15 per shipment'
+      assign bullet_2 = 'Most popular: one 8 oz Morita for $22 per shipment'
+      assign bullet_3 = 'The Combo: one 8 oz Morita plus one 4 oz Seasoning for $28 per shipment'
+    else
+      assign eyebrow = 'Best seller'
+      assign reviews = '21 product reviews'
+      assign fallback_description = 'A handcrafted smoky chipotle chile oil made with premium ingredients and zero artificial additives. Inspired by traditional Mexican and Southwestern cuisine, this versatile sauce elevates any dish with a deep smoky heat.'
+      assign image_1 = 'morita-black-jar.png'
+      assign image_1_alt = 'Black label jar of Vaquero Chile Morita Sauce'
+      assign image_2 = 'morita-spoon.png'
+      assign image_2_alt = 'Chile Morita sauce on a wooden spoon'
+      assign image_3 = 'morita-info-card.png'
+      assign image_3_alt = 'Vaquero Chile Morita product detail card'
+      assign bullet_1 = 'Authentic flavor made with sun-dried chile morita, garlic, and avocado oil'
+      assign bullet_2 = 'Versatile use for tacos, pizza, eggs, grilled meats, and more'
+      assign bullet_3 = 'Slow-cooked in small batches for a rich, bold taste in every drop'
+  endcase
+
+  assign description = product.metafields.custom.short_description | default: fallback_description
+%}
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a>
+  <span aria-hidden="true">/</span>
+  <a href="{{ routes.root_url }}#shop">Shop</a>
+  <span aria-hidden="true">/</span>
+  <span>{{ product.title }}</span>
+</nav>
+
+<section class="product-page" aria-labelledby="product-title">
+  <div class="gallery" aria-label="Product gallery">
+    <img class="gallery__main" src="{{ image_1 | asset_url }}" width="900" height="900" alt="{{ image_1_alt | escape }}">
+    <div class="gallery__thumbs" role="list">
+      <button class="thumb is-active" type="button" aria-label="Show {{ image_1_alt }}" data-image="{{ image_1 | asset_url }}">
+        <img src="{{ image_1 | asset_url }}" width="300" height="300" alt="">
+      </button>
+      <button class="thumb" type="button" aria-label="Show {{ image_2_alt }}" data-image="{{ image_2 | asset_url }}">
+        <img src="{{ image_2 | asset_url }}" width="300" height="300" alt="">
+      </button>
+      <button class="thumb" type="button" aria-label="Show {{ image_3_alt }}" data-image="{{ image_3 | asset_url }}">
+        <img src="{{ image_3 | asset_url }}" width="300" height="300" alt="">
+      </button>
+    </div>
+  </div>
+
+  <div class="product-detail">
+    <p class="eyebrow">{{ product.metafields.custom.eyebrow | default: eyebrow }}</p>
+    <h1 id="product-title">{{ product.title }}</h1>
+    <div class="rating product-detail__rating">
+      <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <a href="#reviews">{{ product.metafields.custom.review_label | default: reviews }}</a>
+    </div>
+    <p class="product-detail__price">
+      {% if product.price_varies %}from {% endif %}{{ product.price_min | money }}
+    </p>
+    <p>{{ description }}</p>
+
+    <ul class="pdp-bullets" aria-label="Product highlights">
+      <li>{{ product.metafields.custom.highlight_1 | default: bullet_1 }}</li>
+      <li>{{ product.metafields.custom.highlight_2 | default: bullet_2 }}</li>
+      <li>{{ product.metafields.custom.highlight_3 | default: bullet_3 }}</li>
+    </ul>
+
+    {% form 'product', product, class: 'buy-box', data-add-to-cart-form: '' %}
+      <fieldset>
+        <legend>{% if product_kind == 'subscription' %}Subscription level{% elsif product_kind == 'bundle' %}Bundle{% else %}Size{% endif %}</legend>
+        {% for variant in product.variants %}
+          <label class="option-card">
+            <input
+              type="radio"
+              name="id"
+              value="{{ variant.id }}"
+              data-price="{{ variant.price | money_without_currency }}"
+              {% if variant == product.selected_or_first_available_variant %}checked{% endif %}
+              {% unless variant.available %}disabled{% endunless %}
+            >
+            <span>
+              <strong>{{ variant.title }}</strong>
+              <small>{% if variant.available %}{{ variant.sku | default: 'Ready to ship' }}{% else %}Sold out{% endif %}</small>
+            </span>
+            <b>{{ variant.price | money }}</b>
+          </label>
+        {% endfor %}
+      </fieldset>
+
+      <div class="quantity-row">
+        <label for="Quantity-{{ section.id }}">Quantity</label>
+        <div class="stepper" data-stepper>
+          <button type="button" aria-label="Decrease quantity" data-step="down">-</button>
+          <input id="Quantity-{{ section.id }}" name="quantity" type="number" min="1" value="1" inputmode="numeric">
+          <button type="button" aria-label="Increase quantity" data-step="up">+</button>
+        </div>
+      </div>
+
+      <button class="button button--primary button--full quick-add" type="submit" {% unless product.available %}disabled{% endunless %}>
+        {% if product.available %}Add to cart{% else %}Sold out{% endif %}
+      </button>
+      <p class="microcopy">Free shipping at $60. Secure checkout. Small batches ship while fresh.</p>
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": []
+}
+{% endschema %}

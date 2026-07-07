@@ -1,0 +1,38 @@
+<section class="shop-section cart-page" aria-labelledby="cart-title">
+  <div class="section-heading">
+    <p class="eyebrow">Checkout</p>
+    <h1 id="cart-title">Your cart</h1>
+  </div>
+
+  {% if cart.item_count == 0 %}
+    <p>Your cart is ready for bold flavor.</p>
+    <a class="button button--primary" href="{{ routes.root_url }}#shop">Shop Vaquero</a>
+  {% else %}
+    <form action="{{ routes.cart_url }}" method="post">
+      <div class="cart-page__items">
+        {% for item in cart.items %}
+          <article class="cart-line">
+            {% if item.image %}
+              {{ item.image | image_url: width: 160 | image_tag: alt: item.product.title }}
+            {% endif %}
+            <div>
+              <strong>{{ item.product.title }}</strong>
+              <span>{{ item.variant.title }}</span>
+              <label>
+                Quantity
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+              </label>
+            </div>
+            <b>{{ item.final_line_price | money }}</b>
+          </article>
+        {% endfor %}
+      </div>
+      <div class="cart-total">
+        <span>Estimated subtotal</span>
+        <strong>{{ cart.total_price | money }}</strong>
+      </div>
+      <button class="button button--secondary" type="submit" name="update">Update cart</button>
+      <button class="button button--primary" type="submit" name="checkout">Checkout</button>
+    </form>
+  {% endif %}
+</section>

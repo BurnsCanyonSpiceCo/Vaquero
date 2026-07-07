@@ -1,0 +1,90 @@
+<section class="use-cases" id="why" aria-labelledby="why-title">
+  <div>
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 id="why-title">{{ section.settings.heading }}</h2>
+    <div class="rte">{{ section.settings.body }}</div>
+  </div>
+  <ul class="use-list" aria-label="Common uses">
+    {% for block in section.blocks %}
+      <li {{ block.shopify_attributes }}>
+        <span>{{ forloop.index | prepend: '0' }}</span>
+        <strong>{{ block.settings.heading }}</strong>
+        <p>{{ block.settings.text }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "What it fixes",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What it fixes"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The finishing move for flat food."
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Body",
+      "default": "<p><strong>Western inspired spice blends</strong> for people who enjoy cooking, but do not overthink it. You do not need recipes. You do not need technique. You do not need to explain what you did. Vaquero is for people who trust their taste.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "use",
+      "name": "Use",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Eggs and breakfast"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Bright heat and savory depth before the first sip of coffee."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "What it fixes",
+      "blocks": [
+        {
+          "type": "use",
+          "settings": {
+            "heading": "Eggs and breakfast",
+            "text": "Bright heat and savory depth before the first sip of coffee."
+          }
+        },
+        {
+          "type": "use",
+          "settings": {
+            "heading": "Tacos and bowls",
+            "text": "Smoky morita flavor that lands immediately."
+          }
+        },
+        {
+          "type": "use",
+          "settings": {
+            "heading": "Grilling and vegetables",
+            "text": "A finishing layer for anything coming off heat."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

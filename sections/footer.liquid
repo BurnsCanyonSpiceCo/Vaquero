@@ -1,0 +1,73 @@
+<footer class="site-footer" id="wholesale">
+  <div>
+    <a class="brand brand--footer" href="{{ routes.root_url }}">
+      <span>{{ section.settings.brand_top }}</span>
+      <small>{{ section.settings.brand_bottom }}</small>
+    </a>
+    <p>{{ section.settings.footer_text }}</p>
+  </div>
+  <nav aria-label="Footer navigation">
+    {% for link in section.settings.footer_menu.links %}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {% else %}
+      <a href="{{ routes.root_url }}#shop">Shop</a>
+      <a href="{{ routes.root_url }}#story">Our Story</a>
+      <a href="{{ routes.root_url }}#newsletter">Newsletter</a>
+      <a href="{{ routes.root_url }}#wholesale">Wholesale</a>
+    {% endfor %}
+  </nav>
+  <address>
+    <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+    <a href="{{ section.settings.instagram_url }}">@burnscanyonspiceco</a>
+    <span>{{ section.settings.location }}</span>
+  </address>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_top",
+      "label": "Brand top line",
+      "default": "Burns Canyon"
+    },
+    {
+      "type": "text",
+      "id": "brand_bottom",
+      "label": "Brand bottom line",
+      "default": "Spice Co."
+    },
+    {
+      "type": "text",
+      "id": "footer_text",
+      "label": "Footer text",
+      "default": "Small-batch chile oil and seasoning from Pioneertown, CA."
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer menu"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "info@burnscanyonspiceco.com"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "default": "https://www.instagram.com/burnscanyonspiceco"
+    },
+    {
+      "type": "text",
+      "id": "location",
+      "label": "Location",
+      "default": "Pioneertown, CA"
+    }
+  ]
+}
+{% endschema %}

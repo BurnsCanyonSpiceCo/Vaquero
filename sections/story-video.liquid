@@ -1,0 +1,55 @@
+<section class="story-band" id="story" aria-labelledby="story-title">
+  <div class="story-band__image story-band__video" data-video-embed="A0avmt77pPw">
+    <button class="video-thumb" type="button" aria-label="Play Burns Canyon story video">
+      <img src="{{ 'founder-video.png' | asset_url }}" width="1200" height="750" alt="Burns Canyon founder outdoors in the high desert">
+      <span class="video-thumb__play" aria-hidden="true"></span>
+    </button>
+    <noscript>
+      <a href="https://www.youtube.com/watch?v=A0avmt77pPw">Watch the Burns Canyon story video</a>
+    </noscript>
+  </div>
+  <div class="story-band__content">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 id="story-title">{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.body }}</p>
+    <a class="button button--secondary" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Story video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Born in Burns Canyon"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Taste first, no overthinking."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Born in Burns Canyon, Vaquero is built around taste first and no overthinking. Make everyday food hit harder with bold, small-batch flavor that knows when to stop."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Get 15% off"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "#newsletter"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,57 @@
+{% liquid
+  assign product_kind = 'morita'
+  if product.handle contains 'bundle'
+    assign product_kind = 'bundle'
+  elsif product.handle contains 'subscription' or product.handle contains 'never-run'
+    assign product_kind = 'subscription'
+  elsif product.handle contains 'seasoning'
+    assign product_kind = 'seasoning'
+  endif
+
+  case product_kind
+    when 'bundle'
+      assign heading = 'A full Vaquero setup.'
+      assign body = 'Keep both jars close for eggs, tacos, vegetables, grilled meats, lunch bowls, and weeknight cooking.'
+    when 'seasoning'
+      assign heading = 'For grilling, cooking, and finishing.'
+      assign body = 'Use on eggs, vegetables, meat, potatoes, bowls, barbecue, and anything that needs a savory finish.'
+    when 'subscription'
+      assign heading = 'For people who use Vaquero constantly.'
+      assign body = 'Best for repeat customers who put Chile Morita on everything and want the box to arrive before the jar runs low.'
+    else
+      assign heading = 'A smoky finish for everyday food.'
+      assign body = 'Drizzle it on tacos, eggs, pizza, grilled meats, vegetables, beans, rice bowls, and anything that needs depth.'
+  endcase
+%}
+
+<section class="use-cases product-uses" aria-labelledby="uses-title">
+  <div>
+    <p class="eyebrow">Works on</p>
+    <h2 id="uses-title">{{ product.metafields.custom.uses_heading | default: heading }}</h2>
+    <p>{{ product.metafields.custom.uses_body | default: body }}</p>
+  </div>
+  <ul class="use-list" aria-label="Common uses">
+    <li>
+      <span>01</span>
+      <strong>Breakfast</strong>
+      <p>Eggs, potatoes, breakfast tacos, avocado toast.</p>
+    </li>
+    <li>
+      <span>02</span>
+      <strong>Dinner</strong>
+      <p>Grilled meat, roasted vegetables, pizza, beans, rice bowls.</p>
+    </li>
+    <li>
+      <span>03</span>
+      <strong>Takeout</strong>
+      <p>Add smoke, heat, and depth when dinner needs help fast.</p>
+    </li>
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Product uses",
+  "settings": []
+}
+{% endschema %}

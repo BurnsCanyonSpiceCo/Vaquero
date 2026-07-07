@@ -1,0 +1,30 @@
+<section class="reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="section-heading">
+    <p class="eyebrow">{{ product.metafields.custom.review_label | default: 'Product reviews' }}</p>
+    <h2 id="reviews-title">Rated 5.0 by Vaquero regulars.</h2>
+  </div>
+  <div class="review-grid">
+    <figure>
+      <div aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <blockquote>Can't get enough, have been putting this on everything.</blockquote>
+      <figcaption>Ryan C</figcaption>
+    </figure>
+    <figure>
+      <div aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <blockquote>Outstanding chile oil. It has so much flavor and the perfect amount of heat.</blockquote>
+      <figcaption>Nadine O</figcaption>
+    </figure>
+    <figure>
+      <div aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <blockquote>Family loves it on chicken the most. Smoky with a small amount of heat.</blockquote>
+      <figcaption>Mike L</figcaption>
+    </figure>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product reviews",
+  "settings": []
+}
+{% endschema %}

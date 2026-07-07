@@ -1,0 +1,83 @@
+<section class="reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="section-heading">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 id="reviews-title">{{ section.settings.heading }}</h2>
+  </div>
+  <div class="review-grid">
+    {% for block in section.blocks %}
+      <figure {{ block.shopify_attributes }}>
+        <div aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>{{ block.settings.quote }}</blockquote>
+        <figcaption>{{ block.settings.author }}</figcaption>
+      </figure>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Customer proof"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "People put it on everything."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Can't get enough, have been putting this on everything."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Ryan C"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Can't get enough, have been putting this on everything.",
+            "author": "Ryan C"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "The best stuff ever. Even my kids love the seasoning.",
+            "author": "Juliana L"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "An explosion of flavor with the perfect amount of heat.",
+            "author": "Paul G"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

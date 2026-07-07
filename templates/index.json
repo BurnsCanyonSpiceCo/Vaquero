@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "hero": {
+      "type": "main-hero"
+    },
+    "trust": {
+      "type": "trust-strip"
+    },
+    "shop": {
+      "type": "shop-vaquero"
+    },
+    "uses": {
+      "type": "use-cases"
+    },
+    "story": {
+      "type": "story-video"
+    },
+    "reviews": {
+      "type": "reviews"
+    },
+    "newsletter": {
+      "type": "newsletter"
+    }
+  },
+  "order": ["hero", "trust", "shop", "uses", "story", "reviews", "newsletter"]
+}

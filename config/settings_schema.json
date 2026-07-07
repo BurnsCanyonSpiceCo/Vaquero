@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Theme settings",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Burns Canyon Shopify theme prepared for GitHub integration. Keep layout, sections, templates, snippets, config, locales, and assets at the repository root."
+      }
+    ]
+  }
+]

@@ -1,0 +1,245 @@
+<section class="shop-section" id="shop" aria-labelledby="shop-title">
+  <div class="section-heading">
+    <p class="eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2 id="shop-title">{{ section.settings.heading }}</h2>
+    <p>{{ section.settings.body }}</p>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filter products">
+    <button class="filter is-active" type="button" data-filter="all">All</button>
+    <button class="filter" type="button" data-filter="sauce">Sauce</button>
+    <button class="filter" type="button" data-filter="seasoning">Seasoning</button>
+    <button class="filter" type="button" data-filter="bundle">Bundles</button>
+    <button class="filter" type="button" data-filter="subscribe">Subscribe</button>
+  </div>
+
+  <div class="product-grid">
+    {% for block in section.blocks %}
+      {% assign card_product = block.settings.product %}
+      {% assign product_url = block.settings.fallback_url %}
+      {% if card_product != blank %}
+        {% assign product_url = card_product.url %}
+      {% endif %}
+      {% case block.settings.card_image %}
+        {% when 'spoon' %}
+          {% assign image_asset = 'morita-spoon.png' %}
+        {% when 'bundle' %}
+          {% assign image_asset = 'bundle-card.png' %}
+        {% when 'seasoning-open' %}
+          {% assign image_asset = 'seasoning-open.png' %}
+        {% else %}
+          {% assign image_asset = 'subscription-card.png' %}
+      {% endcase %}
+      <article class="product-card" data-category="{{ block.settings.category }}" {{ block.shopify_attributes }}>
+        <a class="product-card__image" href="{{ product_url }}" aria-label="View {{ block.settings.title }}">
+          <img src="{{ image_asset | asset_url }}" width="900" height="900" alt="{{ block.settings.image_alt | escape }}">
+          {% if block.settings.badge != blank %}
+            <span class="badge{% if block.settings.badge_tone == 'green' %} badge--green{% endif %}">{{ block.settings.badge }}</span>
+          {% endif %}
+        </a>
+        <div class="product-card__body">
+          <div class="rating" aria-label="Rated 5 out of 5 stars">
+            <span aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            <a href="#reviews">{{ block.settings.rating_text }}</a>
+          </div>
+          <h3><a href="{{ product_url }}">{{ block.settings.title }}</a></h3>
+          <p>{{ block.settings.description }}</p>
+          <div class="product-card__footer">
+            <span class="price">
+              {% if card_product != blank %}
+                {% if card_product.price_varies %}from {% endif %}{{ card_product.price_min | money }}
+              {% else %}
+                {{ block.settings.fallback_price }}
+              {% endif %}
+            </span>
+            {% if card_product != blank and card_product.available %}
+              {% form 'product', card_product, class: 'quick-add-form', data-add-to-cart-form: '' %}
+                <input type="hidden" name="id" value="{{ card_product.selected_or_first_available_variant.id }}">
+                <button class="button button--compact quick-add" type="submit">Add</button>
+              {% endform %}
+            {% else %}
+              <a class="button button--compact" href="{{ product_url }}">View</a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop Vaquero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Shop Vaquero"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Choose your flavor plan."
+    },
+    {
+      "type": "textarea",
+      "id": "body",
+      "label": "Body",
+      "default": "Start with the spoonable Chile Morita, add the dry seasoning, bundle both everyday essentials, or subscribe so Vaquero is always within reach."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Shopify product"
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Filter category",
+          "default": "sauce",
+          "options": [
+            { "value": "sauce", "label": "Sauce" },
+            { "value": "seasoning", "label": "Seasoning" },
+            { "value": "bundle", "label": "Bundle" },
+            { "value": "subscribe", "label": "Subscribe" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "card_image",
+          "label": "Homepage card image",
+          "default": "spoon",
+          "options": [
+            { "value": "spoon", "label": "Chile Morita spoon" },
+            { "value": "bundle", "label": "Bundle group" },
+            { "value": "seasoning-open", "label": "Open seasoning jar" },
+            { "value": "subscription", "label": "Subscription multi-jar" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Image alt text",
+          "default": "Vaquero product"
+        },
+        {
+          "type": "url",
+          "id": "fallback_url",
+          "label": "Fallback product URL",
+          "default": "/products/vaquero-chile-morita-sauce"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge"
+        },
+        {
+          "type": "select",
+          "id": "badge_tone",
+          "label": "Badge tone",
+          "default": "orange",
+          "options": [
+            { "value": "orange", "label": "Orange" },
+            { "value": "green", "label": "Green" }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "rating_text",
+          "label": "Rating text",
+          "default": "21 reviews"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Vaquero Chile Morita Sauce"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Small-batch smoky chipotle chile oil made with morita, garlic, and avocado oil."
+        },
+        {
+          "type": "text",
+          "id": "fallback_price",
+          "label": "Fallback price",
+          "default": "from $7.50"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop Vaquero",
+      "blocks": [
+        {
+          "type": "product_card",
+          "settings": {
+            "category": "sauce",
+            "card_image": "spoon",
+            "image_alt": "Chile Morita sauce on a wooden spoon",
+            "fallback_url": "/products/vaquero-chile-morita-sauce",
+            "badge": "Best seller",
+            "rating_text": "21 reviews",
+            "title": "Vaquero Chile Morita Sauce",
+            "description": "Small-batch smoky chipotle chile oil made with morita, garlic, and avocado oil.",
+            "fallback_price": "from $7.50"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "category": "bundle",
+            "card_image": "bundle",
+            "image_alt": "Vaquero bundle product group",
+            "fallback_url": "/products/vaquero-bundle",
+            "badge": "Save $3",
+            "badge_tone": "green",
+            "rating_text": "Customer favorite",
+            "title": "Vaquero Bundle",
+            "description": "One 4 oz Chile Morita and one 4 oz Signature Seasoning for the full lineup.",
+            "fallback_price": "$19.99"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "category": "seasoning",
+            "card_image": "seasoning-open",
+            "image_alt": "Open jar of Vaquero Signature Seasoning",
+            "fallback_url": "/products/vaquero-signature-seasoning",
+            "rating_text": "3 reviews",
+            "title": "Vaquero Signature Seasoning",
+            "description": "Chile morita, umami salt, garlic, and black pepper for daily cooking.",
+            "fallback_price": "from $6.50"
+          }
+        },
+        {
+          "type": "product_card",
+          "settings": {
+            "category": "subscribe",
+            "card_image": "subscription",
+            "image_alt": "Multiple Vaquero jars on a brown background for a recurring subscription",
+            "fallback_url": "/products/vaquero-never-run-out-subscription",
+            "badge": "Auto ship",
+            "rating_text": "Never run out",
+            "title": "Vaquero - Never Run Out Subscription",
+            "description": "Choose your quantity and get Vaquero delivered every 60 days.",
+            "fallback_price": "from $15"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
