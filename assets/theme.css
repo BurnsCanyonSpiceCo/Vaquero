@@ -723,11 +723,17 @@ h3 {
   position: sticky;
   top: 100px;
   display: grid;
+  align-self: start;
+  align-items: start;
+  grid-auto-rows: max-content;
   gap: 0.85rem;
 }
 
 .gallery__main {
+  display: block;
+  align-self: start;
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: var(--radius);
@@ -742,6 +748,8 @@ h3 {
 }
 
 .thumb {
+  aspect-ratio: 4 / 5;
+  align-self: start;
   padding: 0;
   border: 0;
   border-radius: var(--radius);
@@ -754,7 +762,9 @@ h3 {
 }
 
 .thumb img {
+  display: block;
   width: 100%;
+  height: 100%;
   aspect-ratio: 4 / 5;
   object-fit: cover;
 }
