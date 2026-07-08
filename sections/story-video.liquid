@@ -1,11 +1,15 @@
 <section class="story-band" id="story" aria-labelledby="story-title">
-  <div class="story-band__image story-band__video" data-video-embed="A0avmt77pPw">
+  <div class="story-band__image story-band__video" data-video-embed="{{ section.settings.youtube_id | default: 'A0avmt77pPw' | escape }}">
     <button class="video-thumb" type="button" aria-label="Play Burns Canyon story video">
-      <img src="{{ 'founder-video.png' | asset_url }}" width="1200" height="750" alt="Burns Canyon founder outdoors in the high desert">
+      {% if section.settings.video_thumbnail != blank %}
+        <img src="{{ section.settings.video_thumbnail | image_url: width: 1200 }}" width="1200" height="750" alt="{{ section.settings.video_thumbnail.alt | default: 'Burns Canyon founder outdoors in the high desert' | escape }}">
+      {% else %}
+        <img src="{{ 'founder-video.png' | asset_url }}" width="1200" height="750" alt="Burns Canyon founder outdoors in the high desert">
+      {% endif %}
       <span class="video-thumb__play" aria-hidden="true"></span>
     </button>
     <noscript>
-      <a href="https://www.youtube.com/watch?v=A0avmt77pPw">Watch the Burns Canyon story video</a>
+      <a href="https://www.youtube.com/watch?v={{ section.settings.youtube_id | default: 'A0avmt77pPw' | escape }}">Watch the Burns Canyon story video</a>
     </noscript>
   </div>
   <div class="story-band__content">
@@ -20,6 +24,17 @@
 {
   "name": "Story video",
   "settings": [
+    {
+      "type": "text",
+      "id": "youtube_id",
+      "label": "YouTube video ID",
+      "default": "A0avmt77pPw"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumbnail",
+      "label": "Video thumbnail"
+    },
     {
       "type": "text",
       "id": "eyebrow",

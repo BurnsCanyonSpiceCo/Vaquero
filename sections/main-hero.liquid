@@ -24,7 +24,11 @@
   </div>
 
   <div class="hero__media" aria-label="Vaquero product photography">
-    <img src="{{ 'bundle-stack.png' | asset_url }}" width="392" height="505" alt="Vaquero chile morita and signature seasoning jars stacked together">
+    {% if section.settings.hero_image != blank %}
+      <img src="{{ section.settings.hero_image | image_url: width: 392 }}" width="392" height="505" alt="{{ section.settings.hero_image.alt | default: 'Vaquero chile morita and signature seasoning jars stacked together' | escape }}">
+    {% else %}
+      <img src="{{ 'bundle-stack.png' | asset_url }}" width="392" height="505" alt="Vaquero chile morita and signature seasoning jars stacked together">
+    {% endif %}
     <div class="floating-card">
       <strong>Best seller</strong>
       <span>Chile Morita Sauce</span>
@@ -37,6 +41,11 @@
 {
   "name": "Hero",
   "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
     {
       "type": "text",
       "id": "eyebrow",

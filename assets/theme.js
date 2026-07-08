@@ -176,11 +176,11 @@ document.querySelectorAll("[data-add-to-cart-form]").forEach((form) => {
 
 document.querySelectorAll("[data-video-embed]").forEach((video) => {
   video.querySelector(".video-thumb")?.addEventListener("click", () => {
-    const id = video.dataset.videoEmbed;
+    const id = video.dataset.videoEmbed?.trim();
     if (!id) return;
     video.innerHTML = `
       <iframe
-        src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0"
+        src="https://www.youtube.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0"
         title="Burns Canyon story video"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen>

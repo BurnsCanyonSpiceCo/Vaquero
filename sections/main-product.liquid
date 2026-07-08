@@ -76,18 +76,30 @@
 
 <section class="product-page" aria-labelledby="product-title">
   <div class="gallery" aria-label="Product gallery">
-    <img class="gallery__main" src="{{ image_1 | asset_url }}" width="900" height="900" alt="{{ image_1_alt | escape }}">
-    <div class="gallery__thumbs" role="list">
-      <button class="thumb is-active" type="button" aria-label="Show {{ image_1_alt }}" data-image="{{ image_1 | asset_url }}">
-        <img src="{{ image_1 | asset_url }}" width="300" height="300" alt="">
-      </button>
-      <button class="thumb" type="button" aria-label="Show {{ image_2_alt }}" data-image="{{ image_2 | asset_url }}">
-        <img src="{{ image_2 | asset_url }}" width="300" height="300" alt="">
-      </button>
-      <button class="thumb" type="button" aria-label="Show {{ image_3_alt }}" data-image="{{ image_3 | asset_url }}">
-        <img src="{{ image_3 | asset_url }}" width="300" height="300" alt="">
-      </button>
-    </div>
+    {% if product.images.size > 0 %}
+      {% assign first_image = product.images.first %}
+      <img class="gallery__main" src="{{ first_image | image_url: width: 900 }}" width="900" height="900" alt="{{ first_image.alt | default: product.title | escape }}">
+      <div class="gallery__thumbs" role="list">
+        {% for gallery_image in product.images %}
+          <button class="thumb{% if forloop.first %} is-active{% endif %}" type="button" aria-label="Show {{ gallery_image.alt | default: product.title | escape }}" data-image="{{ gallery_image | image_url: width: 900 }}">
+            <img src="{{ gallery_image | image_url: width: 300 }}" width="300" height="300" alt="">
+          </button>
+        {% endfor %}
+      </div>
+    {% else %}
+      <img class="gallery__main" src="{{ image_1 | asset_url }}" width="900" height="900" alt="{{ image_1_alt | escape }}">
+      <div class="gallery__thumbs" role="list">
+        <button class="thumb is-active" type="button" aria-label="Show {{ image_1_alt }}" data-image="{{ image_1 | asset_url }}">
+          <img src="{{ image_1 | asset_url }}" width="300" height="300" alt="">
+        </button>
+        <button class="thumb" type="button" aria-label="Show {{ image_2_alt }}" data-image="{{ image_2 | asset_url }}">
+          <img src="{{ image_2 | asset_url }}" width="300" height="300" alt="">
+        </button>
+        <button class="thumb" type="button" aria-label="Show {{ image_3_alt }}" data-image="{{ image_3 | asset_url }}">
+          <img src="{{ image_3 | asset_url }}" width="300" height="300" alt="">
+        </button>
+      </div>
+    {% endif %}
   </div>
 
   <div class="product-detail">

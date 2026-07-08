@@ -32,7 +32,11 @@
       {% endcase %}
       <article class="product-card" data-category="{{ block.settings.category }}" {{ block.shopify_attributes }}>
         <a class="product-card__image" href="{{ product_url }}" aria-label="View {{ block.settings.title }}">
-          <img src="{{ image_asset | asset_url }}" width="900" height="900" alt="{{ block.settings.image_alt | escape }}">
+          {% if block.settings.card_image_upload != blank %}
+            <img src="{{ block.settings.card_image_upload | image_url: width: 900 }}" width="900" height="900" alt="{{ block.settings.card_image_upload.alt | default: block.settings.image_alt | escape }}">
+          {% else %}
+            <img src="{{ image_asset | asset_url }}" width="900" height="900" alt="{{ block.settings.image_alt | escape }}">
+          {% endif %}
           {% if block.settings.badge != blank %}
             <span class="badge{% if block.settings.badge_tone == 'green' %} badge--green{% endif %}">{{ block.settings.badge }}</span>
           {% endif %}
@@ -111,6 +115,11 @@
             { "value": "bundle", "label": "Bundle" },
             { "value": "subscribe", "label": "Subscribe" }
           ]
+        },
+        {
+          "type": "image_picker",
+          "id": "card_image_upload",
+          "label": "Custom card image"
         },
         {
           "type": "select",

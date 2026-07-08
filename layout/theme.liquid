@@ -12,6 +12,26 @@
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
+    {% liquid
+      assign og_description = page_description | default: shop.description | default: shop.name
+      if settings.social_share_image != blank
+        assign social_share_image_url = settings.social_share_image | image_url: width: 1200
+      else
+        assign social_share_image_url = 'bundle-stack.png' | asset_url
+      endif
+      assign social_share_image_url = social_share_image_url | replace: 'https://', '//' | prepend: 'https:'
+    %}
+    {% if settings.favicon != blank %}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {% endif %}
+    <meta property="og:title" content="{{ page_title | escape }}">
+    <meta property="og:description" content="{{ og_description | escape }}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{{ social_share_image_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page_title | escape }}">
+    <meta name="twitter:description" content="{{ og_description | escape }}">
+    <meta name="twitter:image" content="{{ social_share_image_url }}">
     {{ content_for_header }}
     {{ 'theme.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'theme.js' | asset_url }}" defer></script>

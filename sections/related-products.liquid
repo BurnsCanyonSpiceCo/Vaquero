@@ -9,7 +9,9 @@
       {% if related_product != blank %}
         <article class="product-card" {{ block.shopify_attributes }}>
           <a class="product-card__image" href="{{ related_product.url }}" aria-label="View {{ related_product.title }}">
-            {% if block.settings.image_asset == 'seasoning' %}
+            {% if block.settings.related_image_upload != blank %}
+              <img src="{{ block.settings.related_image_upload | image_url: width: 900 }}" width="900" height="900" alt="{{ block.settings.related_image_upload.alt | default: related_product.title | escape }}">
+            {% elsif block.settings.image_asset == 'seasoning' %}
               <img src="{{ 'seasoning-white-jar.png' | asset_url }}" width="386" height="386" alt="White label jar of Vaquero Signature Seasoning">
             {% else %}
               <img src="{{ 'bundle-duo.png' | asset_url }}" width="900" height="900" alt="Vaquero Bundle with one black label Chile Morita jar and one white label Signature Seasoning jar">
@@ -51,6 +53,11 @@
           "type": "product",
           "id": "product",
           "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "related_image_upload",
+          "label": "Custom product image"
         },
         {
           "type": "select",
