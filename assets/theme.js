@@ -14,12 +14,17 @@ const productCards = document.querySelectorAll(".product-card");
 const stepperGroups = document.querySelectorAll("[data-stepper]");
 
 function syncMenuOffset() {
+  const root = document.documentElement;
   const header = document.querySelector(".site-header");
   if (!header) return;
-  document.documentElement.style.setProperty(
-    "--menu-top",
-    `${Math.round(header.getBoundingClientRect().height)}px`,
-  );
+  const headerHeight = Math.round(header.getBoundingClientRect().height);
+  const announcementHeight =
+    announcement?.isConnected ? Math.round(announcement.getBoundingClientRect().height) : 0;
+  const announcementOffset = Math.max(announcementHeight - Math.round(window.scrollY), 0);
+
+  root.style.setProperty("--header-height", `${headerHeight}px`);
+  root.style.setProperty("--announcement-offset", `${announcementOffset}px`);
+  root.style.setProperty("--menu-top", `${announcementOffset + headerHeight}px`);
 }
 
 function formatMoney(cents) {
@@ -203,4 +208,5 @@ document.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("resize", syncMenuOffset);
+window.addEventListener("scroll", syncMenuOffset, { passive: true });
 syncMenuOffset();
