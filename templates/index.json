@@ -4,19 +4,161 @@
       "type": "main-hero"
     },
     "trust": {
-      "type": "trust-strip"
+      "type": "trust-strip",
+      "blocks": {
+        "small_batches": {
+          "type": "item",
+          "settings": {
+            "icon": "leaf",
+            "heading": "Handcrafted in small batches",
+            "text": "Made in Pioneertown, CA"
+          }
+        },
+        "clean_ingredients": {
+          "type": "item",
+          "settings": {
+            "icon": "check",
+            "heading": "Clean ingredients",
+            "text": "No fillers, no shortcuts"
+          }
+        },
+        "everyday_versatile": {
+          "type": "item",
+          "settings": {
+            "icon": "cloche",
+            "heading": "Everyday versatile",
+            "text": "Breakfast to barbecue"
+          }
+        },
+        "secure_checkout": {
+          "type": "item",
+          "settings": {
+            "icon": "lock",
+            "heading": "Secure checkout",
+            "text": "Cards, wallets, and Klarna ready"
+          }
+        }
+      },
+      "block_order": ["small_batches", "clean_ingredients", "everyday_versatile", "secure_checkout"]
     },
     "shop": {
-      "type": "shop-vaquero"
+      "type": "shop-vaquero",
+      "blocks": {
+        "chile_morita_sauce": {
+          "type": "product_card",
+          "settings": {
+            "category": "sauce",
+            "card_image": "spoon",
+            "image_alt": "Vaquero Chile Morita Sauce",
+            "fallback_url": "/products/vaquero-chile-morita-sauce",
+            "badge": "Best seller",
+            "rating_text": "21 reviews",
+            "title": "Vaquero Chile Morita Sauce",
+            "description": "Small-batch smoky chipotle chile oil made with morita, garlic, and avocado oil.",
+            "fallback_price": "from $7.50"
+          }
+        },
+        "vaquero_bundle": {
+          "type": "product_card",
+          "settings": {
+            "category": "bundle",
+            "card_image": "bundle",
+            "image_alt": "Vaquero Bundle",
+            "fallback_url": "/products/vaquero-bundle",
+            "badge": "Save $3",
+            "badge_tone": "green",
+            "rating_text": "Customer favorite",
+            "title": "Vaquero Bundle",
+            "description": "One 4 oz Chile Morita and one 4 oz Signature Seasoning for the full lineup.",
+            "fallback_price": "$19.99"
+          }
+        },
+        "signature_seasoning": {
+          "type": "product_card",
+          "settings": {
+            "category": "seasoning",
+            "card_image": "seasoning-open",
+            "image_alt": "Vaquero Signature Seasoning",
+            "fallback_url": "/products/vaquero-signature-seasoning",
+            "rating_text": "3 reviews",
+            "title": "Vaquero Signature Seasoning",
+            "description": "Chile morita, umami salt, garlic, and black pepper for daily cooking.",
+            "fallback_price": "from $6.50"
+          }
+        },
+        "subscription": {
+          "type": "product_card",
+          "settings": {
+            "category": "subscribe",
+            "card_image": "subscription",
+            "image_alt": "Vaquero subscription multi-jar",
+            "fallback_url": "/products/vaquero-never-run-out-subscription",
+            "badge": "Auto ship",
+            "rating_text": "Never run out",
+            "title": "Vaquero - Never Run Out Subscription",
+            "description": "Choose your quantity and get Vaquero delivered every 60 days.",
+            "fallback_price": "from $15"
+          }
+        }
+      },
+      "block_order": ["chile_morita_sauce", "vaquero_bundle", "signature_seasoning", "subscription"]
     },
     "uses": {
-      "type": "use-cases"
+      "type": "use-cases",
+      "blocks": {
+        "eggs_breakfast": {
+          "type": "use",
+          "settings": {
+            "heading": "Eggs and breakfast",
+            "text": "Bright heat and savory depth before the first sip of coffee."
+          }
+        },
+        "tacos_bowls": {
+          "type": "use",
+          "settings": {
+            "heading": "Tacos and bowls",
+            "text": "Smoky morita flavor that lands immediately."
+          }
+        },
+        "grilling_vegetables": {
+          "type": "use",
+          "settings": {
+            "heading": "Grilling and vegetables",
+            "text": "A finishing layer for anything coming off heat."
+          }
+        }
+      },
+      "block_order": ["eggs_breakfast", "tacos_bowls", "grilling_vegetables"]
     },
     "story": {
       "type": "story-video"
     },
     "reviews": {
-      "type": "reviews"
+      "type": "reviews",
+      "blocks": {
+        "ryan_c": {
+          "type": "review",
+          "settings": {
+            "quote": "Can't get enough, have been putting this on everything.",
+            "author": "Ryan C"
+          }
+        },
+        "juliana_l": {
+          "type": "review",
+          "settings": {
+            "quote": "The best stuff ever. Even my kids love the seasoning.",
+            "author": "Juliana L"
+          }
+        },
+        "paul_g": {
+          "type": "review",
+          "settings": {
+            "quote": "An explosion of flavor with the perfect amount of heat.",
+            "author": "Paul G"
+          }
+        }
+      },
+      "block_order": ["ryan_c", "juliana_l", "paul_g"]
     },
     "newsletter": {
       "type": "newsletter"
