@@ -728,7 +728,7 @@ h3 {
 
 .gallery__main {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   border-radius: var(--radius);
   background: var(--white);
@@ -755,7 +755,7 @@ h3 {
 
 .thumb img {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
 }
 
